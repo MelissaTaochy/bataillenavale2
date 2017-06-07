@@ -2,6 +2,7 @@ package fr.ibformation.springboot.bataillenavale.gestionnairejeu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.ibformation.springboot.bataillenavale.gestionnairepartie.Tir;
 
@@ -11,50 +12,61 @@ public class Map {
 	private List<Emplacement> grille = new ArrayList<>();
 	private List<Bateau> bateaux = new ArrayList<>();
 	private int vieTotale;
-	
-	
+
+	private static Random random = new Random(42);
+
 	public Map() {
 
 	}
-	
-	
 
 	public int getVieTotale() {
 		return vieTotale;
 	}
 
-
-
 	public void setVieTotale(int vieTotale) {
 		this.vieTotale = vieTotale;
 	}
-
-
 
 	public Map(int taille) {
 		this.taille = taille;
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				grille.add(new Emplacement(i, j));
-			
+
 			}
 		}
+
+		Bateau bateau = new Bateau(3);
+		int tailleBateau = bateau.getTaille();
+		bateau.setOrientation(random.nextBoolean());
 		
-		Bateau b = new Bateau (3,1,1,true);
-		Bateau b2 = new Bateau (2,3,3,false);
-		bateaux.add(b);
-		bateaux.add(b2);
-		
-		ajouterBateau(b);
-		ajouterBateau(b2);
-		
-		for (int i = 0; i<bateaux.size(); i++){
-			vieTotale = vieTotale + bateaux.get(i).getVie();
-			
+		if (bateau.getOrientation()==true){
+			bateau.setPosition_x(random.nextInt(taille-tailleBateau+1));
+			bateau.setPosition_y(random.nextInt(taille));
 		}
 		
-		//utiliser random pour generer un nombre aleatoire puis randomiser x, y et orientation
-	
+		else if (bateau.getOrientation()==false){
+			bateau.setPosition_x(random.nextInt(taille));
+			bateau.setPosition_y(random.nextInt(taille-tailleBateau+1));
+		}
+		
+		
+		
+		
+		bateaux.add(bateau);
+		
+
+		ajouterBateau(bateau);
+		
+
+		for (int i = 0; i < bateaux.size(); i++) {
+			vieTotale = vieTotale + bateaux.get(i).getVie();
+
+		}
+
+		// utiliser random pour generer un nombre aleatoire puis randomiser x, y
+		// et orientation
+
 	}
 
 	public int getTaille() {
@@ -66,20 +78,20 @@ public class Map {
 	}
 
 	public void ajouterBateau(Bateau b) {
-	
+
 		int i = b.getPosition_x();
 		int j = b.getPosition_y();
 		boolean orientation = b.getOrientation();
 		int tailleBateau = b.getTaille();
-		
+
 		Emplacement e = grille.get(convertCoordToIndex(i, j));
-		
-		if (orientation == true) { //bateau vertical
+
+		if (orientation == true) { // bateau vertical
 			for (int t = 0; t < tailleBateau; t++) {
 				grille.get(convertCoordToIndex(i + t, j)).setType(TypeType.BATEAU);
 			}
 		} else {
-			for (int t = 0; t < tailleBateau; t++) { //bateau horizontal
+			for (int t = 0; t < tailleBateau; t++) { // bateau horizontal
 				grille.get(convertCoordToIndex(i, j + t)).setType(TypeType.BATEAU);
 			}
 
@@ -109,7 +121,27 @@ public class Map {
 		return (y * taille) + x;
 
 	}
-	
-	//toString personnalisr 2 boucles for, explorer les cases et afficher en fonction du statut
+
+	public String myToString() {
+		String str = "";
+		for (int i = 0; i < taille; i++) {
+			for (int j = 0; j < taille; j++) {
+				if (grille.get(convertCoordToIndex(i, j)).getStatut() == TypeStatutCase.DECOUVERT) {
+					if (grille.get(convertCoordToIndex(i, j)).getType() == TypeType.MER)
+						str += "0";
+					else
+						str += "X";
+				} else if (grille.get(convertCoordToIndex(i, j)).getType() == TypeType.BATEAU)
+					str += "B";
+				else
+					str += ".";
+			}
+			str += "\n";
+		}
+		return str;
+	}
+
+	// toString personnalisr 2 boucles for, explorer les cases et afficher en
+	// fonction du statut
 
 }

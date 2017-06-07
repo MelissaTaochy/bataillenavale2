@@ -12,6 +12,13 @@ public class Bateau {
 	public Bateau() {
 	
 	}
+	
+	
+	public Bateau(int taille) {
+		this.taille = taille;
+	}
+
+
 	public int getTaille() {
 		return taille;
 	}

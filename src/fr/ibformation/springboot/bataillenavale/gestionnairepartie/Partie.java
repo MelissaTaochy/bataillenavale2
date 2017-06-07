@@ -95,8 +95,8 @@ public class Partie {
 
 	public void demarrerPartie() {
 		if (statut == TypeStatut.ENCOURS) {
-			map1 = new Map(5);
-			map2 = new Map(5);
+			map1 = new Map(10);
+			map2 = new Map(10);
 			System.out.println("NB INIT VIE :  " + map1.getVieTotale());
 			joueurEnCours=joueur1;
 

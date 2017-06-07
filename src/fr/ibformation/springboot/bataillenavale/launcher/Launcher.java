@@ -13,26 +13,35 @@ public class Launcher {
 		joueur2.rejoindrePartie(p);
 		
 		p.demarrerPartie();
+		System.out.println("MAP1 INIT");
+		System.out.println(p.getMap1().myToString());
+		
+		System.out.println("MAP2 INIT");
+		System.out.println(p.getMap2().myToString());
+		/*
+		
 		System.out.println("partie démarrée");
 		System.out.println("joueur1 tire");
-		joueur1.tirer(1, 1);
+		joueur1.tirer(0, 3);
 		System.out.println("joueur2 tire");
-		joueur1.tirer(2, 1);
-		System.out.println("joueur2 tire");
+		joueur2.tirer(2, 1);
+		System.out.println("joueur1 tire");
 		joueur1.tirer(3, 1);
 		System.out.println("joueur2 tire");
-		joueur1.tirer(3, 3);
+		joueur2.tirer(3, 3);
+		System.out.println("joueur1 tire");
+		joueur1.tirer(4, 4);
 		System.out.println("joueur2 tire");
-		joueur1.tirer(3, 4);
-		System.out.println("joueur2 tire");
+		joueur2.tirer(3, 1);
+		System.out.println("MAP1");
+		System.out.println(p.getMap1().myToString());
 		
-		
-		
-		
+		System.out.println("MAP2");
+		System.out.println(p.getMap2().myToString());
 		
 		
 		System.out.println("FIN");
-
+*/
 	}
 
 }
